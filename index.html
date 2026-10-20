@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sorry Malak 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe4ec;--bg2:#ffc2d4;--text:#6b1d3a;--accent:#e63a6e;--card:rgba(255,255,255,.75);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a0f1c;--bg2:#4a1630;--text:#ffd6e3;--accent:#ff6b96;--card:rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg1:#2a0f1c;--bg2:#4a1630;--text:#ffd6e3;--accent:#ff6b96;--card:rgba(0,0,0,.35)}
+html,body{height:100%;margin:0}
+body{background:linear-gradient(160deg,var(--bg1),var(--bg2));color:var(--text);font-family:'Cairo',Tahoma,Arial,sans-serif;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.card{position:relative;z-index:2;background:var(--card);backdrop-filter:blur(8px);border-radius:24px;padding:32px 26px;width:min(92%,460px);text-align:center;box-shadow:0 10px 40px rgba(230,58,110,.25)}
+.big{font-size:64px;animation:beat 1.2s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+h1{margin:8px 0 14px;font-size:30px;color:var(--accent)}
+p{font-size:19px;margin:0 0 6px}
+#main{display:none}
+#msg{min-height:150px;font-size:19px;line-height:2;white-space:pre-wrap}
+button{margin-top:18px;border:0;border-radius:999px;padding:12px 30px;font:700 18px 'Cairo',Tahoma,Arial,sans-serif;background:var(--accent);color:#fff;cursor:pointer}
+button:active{transform:scale(.96)}
+#btn{display:none}
+#final{display:none;margin-top:16px;font-size:24px;font-weight:700;color:var(--accent)}
+.fly{position:fixed;bottom:-40px;z-index:1;animation:up linear forwards;pointer-events:none}
+@keyframes up{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="intro">
+    <div class="big">💌</div>
+    <h1>ملاك…</h1>
+    <p>في شي إلك</p>
+    <button id="start">اضغطي هون</button>
+  </div>
+  <div id="main">
+    <div class="big">🌸</div>
+    <h1>Sorry Malak</h1>
+    <div id="msg"></div>
+    <button id="btn">سامحيني؟ 🥺</button>
+    <div id="final">آسف مرة تانية 🌸</div>
+  </div>
+</div>
+<script>
+const lines = [
+  "ملاك…",
+  "أنا عارف إني زعلتك، وهاد آخر شي كنت بدي إياه.",
+  "وأنا فعلاً آسف على اللي صار.",
+  "أنا آسف على غلطي، وبوعدك أكون أحسن.",
+  "ورح أحاول ما أكون رخم وأضايقك وأتقّل دمي تاني.",
+  "سامحيني… لأن زعلك بيهمني كتير."
+];
+const msg = document.getElementById("msg");
+const btn = document.getElementById("btn");
+const fin = document.getElementById("final");
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function heart(){
+  const h = document.createElement("div");
+  h.className = "fly";
+  h.textContent = ["🌸","✨","⭐","🌷","💛"][Math.floor(Math.random()*5)];
+  h.style.left = Math.random()*95 + "vw";
+  h.style.fontSize = (18 + Math.random()*28) + "px";
+  h.style.animationDuration = (5 + Math.random()*5) + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 10500);
+}
+
+async function run(){
+  for (const line of lines){
+    for (const ch of line){ msg.textContent += ch; await sleep(55); }
+    msg.textContent += "\n";
+    await sleep(700);
+  }
+  btn.style.display = "inline-block";
+}
+
+document.getElementById("start").onclick = () => {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("main").style.display = "block";
+  setInterval(heart, 450);
+  run();
+};
+
+btn.onclick = () => {
+  fin.style.display = "block";
+  btn.style.display = "none";
+  for (let i = 0; i < 40; i++) setTimeout(heart, i * 60);
+};
+</script>
+</body>
+</html>
